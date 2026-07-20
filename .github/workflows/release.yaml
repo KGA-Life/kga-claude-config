@@ -1,0 +1,34 @@
+name: Release Feature to GHCR
+
+# Publishes the devcontainer Feature(s) under src/ to GHCR as OCI artifacts, so consuming
+# repos reference them by coordinate: ghcr.io/kga-life/kga-claude-config/claude-config:<semver>.
+# Auth is the ambient GITHUB_TOKEN with packages:write — no separate PAT (least-privilege, T3).
+# NOTE: GHCR packages publish PRIVATE by default; after the first run, flip the package to
+# public in the org package settings so consumers pull loginless.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "src/**"
+      - ".github/workflows/release.yaml"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+
+      - name: Publish Features to GHCR
+        uses: devcontainers/action@1082abd5d2bf3a11abccba70eef98df068277772 # v1.4.3
+        with:
+          publish-features: "true"
+          base-path-to-features: "./src"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

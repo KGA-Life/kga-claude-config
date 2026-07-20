@@ -1,0 +1,20 @@
+{
+  "id": "claude-config",
+  "version": "0.1.0",
+  "name": "KGA Claude Config",
+  "description": "Materializes the shared KGA CLAUDE.md + .claude/ config at the workspace root by fetching the canonical KGA-Life/kga-claude-config repo. Human-developer / CI distribution channel for the KGA integration-API fleet.",
+  "documentationURL": "https://github.com/KGA-Life/kga-claude-config",
+  "options": {
+    "claude_config_repo": {
+      "type": "string",
+      "default": "https://github.com/KGA-Life/kga-claude-config",
+      "description": "Canonical config repo to fetch CLAUDE.md + .claude/ from."
+    },
+    "claude_config_ref": {
+      "type": "string",
+      "default": "main",
+      "description": "Branch, tag, or SHA of the canonical config to materialize. Default 'main' so a config bump propagates on next build; pin to a tag/SHA for reproducibility."
+    }
+  },
+  "postCreateCommand": "sync-claude-config"
+}
