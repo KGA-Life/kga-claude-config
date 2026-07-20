@@ -173,3 +173,5 @@ not a guarantee).
 Read **`CLAUDE.local.md`** (this service's manual: provider, auth model, scopes, module map,
 quirks) and **`reference/`** (the provider's own API docs, committed for offline reference).
 This `CLAUDE.md` is the shared base; those two are where this repo says what makes it different.
+
+<!-- T13 propagation probe: 2026-07-20 — proves a canonical bump flows to consumers on next build; removed after verification. -->
